@@ -14,7 +14,7 @@ public class Users {
     private String username;
 
     @NotBlank(message = "密码不能为空")
-    @Size(min = 8,max = 16,message = "密码应为8~16位")
+//    @Size(min = 8,max = 16,message = "密码应为8~16位")
     private String password;
 
     @NotBlank(message = "手机号不能为空")

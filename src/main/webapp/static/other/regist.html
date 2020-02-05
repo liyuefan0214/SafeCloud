@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../css/regist.css">
+    <script type="text/javascript" src="../js/jquery-3.0.0.js"></script>
+    <script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.12.0/js/md5.js"></script>
+    <script src="http://www.gongjuji.net/Content/files/jquery.md5.js"></script>
+</head>
+<body>
+<div class="main">
+    <div class="regist">
+        <!--<div class="wel">Welcome</div>-->
+        <div class="userblock">
+            <div class="inputtitle">Username</div>
+            <input class="logininput username" type="text" placeholder="请输入用户名">
+        </div>
+        <div class="pwblock">
+            <div class="inputtitle">Password</div>
+            <input class="logininput Password" type="password" placeholder="请输入密码">
+        </div>
+        <div class="repwblock">
+            <div class="inputtitle">Repassword</div>
+            <input class="logininput repassword" type="password" placeholder="请再次输入密码">
+        </div>
+        <div class="phoneNumberblock">
+            <div class="inputtitle">PhoneNumber</div>
+            <input class="logininput phoneNumber" type="text" placeholder="请输入电话号码">
+        </div>
+        <div class="emailblock">
+            <div class="inputtitle">Email</div>
+            <input class="logininput email" id="email" type="text" placeholder="请输入邮箱"><div class="sendcode">获取验证码</div>
+        </div>
+        <div class="emailcodeblock">
+            <div class="inputtitle">EmailCode</div>
+            <input class="logininput emailcode" type="text" placeholder="请输入邮箱验证码">
+        </div>
+        <div class="signupbtn">
+            <a href="javascript:;" id="btnRegist">Regist</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+<script type="text/javascript">
+    $(function(){
+        $(".sendcode").click(function(){
+            //alert("ok");
+            var email=$(".email").val();
+            $.ajax({
+                method:"post",
+                data:{"email":email},
+                url:"http://localhost/SafeCloud/sendMail",
+                success:function (data){
+                    //返回数据的操作
+                    var code=data.code;
+                    if(code==200)
+                    {
+                        alert("发送成功");
+                        //$(".email").val("发送成功");
+                    }
+                },
+                error:function(error){
+                    console.log("发送失败")
+                }
+            })
+        })
+        $("#btnRegist").click(function(){
+            var username = $(".username").val();//取值
+            var tem=$(".Password").val();
+            var password = $.md5(tem);
+            //$('.Password').val($.md5(password));
+            var repassword=$(".repassword").val();
+            var phoneNumber=$(".phoneNumber").val();
+            var email=$(".email").val();
+            var emailcode=$(".emailcode").val();
+//用户名验证
+            var reg1=/^[0-9A-Za-z]{5,12}$/;
+            if(!username){
+                alert("用户名必填!");
+                $(".username").focus();//获取焦点
+                return ;
+            }
+            if(!reg1.test(username)){
+                alert("用户名格式有误！5到12个字符由数字和字母组成");
+                return;
+            }
+//密码验证
+            if(!tem){
+                alert("密码必填!");
+                $(".Password").focus();//获取焦点
+                return ;
+            }
+            var reg2=/(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.,?:~!@#$%^&*()]{8,16}$/;
+            if(!reg2.test(tem)){
+                alert("8到16个仅字符由数字+字母的字符串(可以有特殊字符)");
+                return;
+            }
+//重新输入密码
+            if(repassword!==tem){
+                alert("两次密码不一致！");
+                return;
+            }
+//手机号码验证
+            if(!phoneNumber){
+                alert("手机号必填!");
+                $(".phoneNumber").focus();//获取焦点
+                return ;
+            }
+            var reg3=/^([1][3,4,5,6,7,8,9])\d{9}$/;
+            if(!reg3.test(phoneNumber)){
+                alert("手机号格式有误！");
+                return;
+            }
+//邮箱验证
+            if(!email){
+                alert("邮箱必填！");
+                $(".email").focus();//获取焦点
+                return ;
+            }
+            var reg4=/^[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]$/;
+            if(!reg4.test(email)){
+                alert("邮箱格式有误！");
+                return;
+            }
+//验证码
+            if(!emailcode){
+                alert("邮箱验证码必填！");
+                $(".email").focus();//获取焦点
+                return ;
+            }
+            $.ajax({
+                method:"post",//默认method
+                data:{"username":username,"password":password,"phoneNumber":phoneNumber,"email":email,"emailcode":emailcode},
+                url:"http://localhost/SafeCloud/regist",
+                success:function (data){
+                    //返回数据的操作
+                    var code=data.code;
+                    if(code==200)
+                    {
+                        alert("注册成功");
+                    }
+                },
+                error:function(res){
+                    var errormes=res.usersMessage.Error;
+                    alert(errormes);
+                }
+            });
+
+
+        })
+    })
+
+</script>

@@ -366,6 +366,66 @@ public class FolderExample {
             return (Criteria) this;
         }
 
+        public Criteria andFolderFatherIdIsNull() {
+            addCriterion("folder_father_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdIsNotNull() {
+            addCriterion("folder_father_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdEqualTo(Integer value) {
+            addCriterion("folder_father_id =", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdNotEqualTo(Integer value) {
+            addCriterion("folder_father_id <>", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdGreaterThan(Integer value) {
+            addCriterion("folder_father_id >", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("folder_father_id >=", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdLessThan(Integer value) {
+            addCriterion("folder_father_id <", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdLessThanOrEqualTo(Integer value) {
+            addCriterion("folder_father_id <=", value, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdIn(List<Integer> values) {
+            addCriterion("folder_father_id in", values, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdNotIn(List<Integer> values) {
+            addCriterion("folder_father_id not in", values, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdBetween(Integer value1, Integer value2) {
+            addCriterion("folder_father_id between", value1, value2, "folderFatherId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFolderFatherIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("folder_father_id not between", value1, value2, "folderFatherId");
+            return (Criteria) this;
+        }
+
         public Criteria andUidIsNull() {
             addCriterion("uid is null");
             return (Criteria) this;

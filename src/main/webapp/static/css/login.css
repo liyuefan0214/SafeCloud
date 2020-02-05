@@ -1,0 +1,77 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+html,body{
+    width: 100%;
+     height: 100%;
+}
+.main{
+    width:100%;
+    height: 100%;
+    /*background-color: white;
+    opacity: 0.3;*/
+}
+body{
+    background-attachment: fixed;
+    background-image: url("../images/2.jpg");
+    background-size: cover;
+}
+/*body::after{
+    content: "";
+    display: block;
+    padding-bottom: 0;
+}*/
+.login {
+    width: 390px;
+    height: 320px;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.wel{
+    margin: 20px 30px;
+    font-size: large;
+}
+.userblock,.pwblock{
+    margin: 20px 30px;
+}
+.logininput{
+    outline: none;
+    border: 1px solid gray;
+    text-shadow: none;
+    box-shadow: none;
+    width: 310px;
+    height: 30px;
+    padding-left: 10px;
+}
+.inputtitle{
+    margin-bottom: 7px;
+    font-size: small;
+}
+.signinbtn{
+    width: 322px;
+    height: 30px;
+    background-color: royalblue;
+    margin: 30px 30px 10px;
+    text-align: center;
+}
+.registbtn{
+    width: 322px;
+    height: 30px;
+    margin: 0px 30px;
+    text-align: center;
+}
+.registbtn>a{
+    color: black;
+    font-size: small;
+}
+#btnLogin{
+    text-decoration: none;
+    color: white;
+    font-size: small;
+}

@@ -3,7 +3,7 @@ package com.liyuefan.cloud.service;
 import com.liyuefan.cloud.dao.UsersMapper;
 import com.liyuefan.cloud.pojo.Users;
 import com.liyuefan.cloud.pojo.UsersExample;
-import com.liyuefan.cloud.utils.MD5Utils;
+import com.liyuefan.cloud.utils.encryption.MD5Utils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,9 +41,9 @@ public class UsersService {
 
     //将用户注册信息存入数据库
     public void UserRegist(Users users) {
-        String password = users.getPassword();
-        String md5 = MD5Utils.stringToMD5(password);
-        users.setPassword(md5);
+//        String password = users.getPassword();
+//        String md5 = MD5Utils.stringToMD5(password);
+//        users.setPassword(md5);
         users.setCreateTime(new Date());
         users.setUpdateTime(new Date());
         usersMapper.insertSelective(users);

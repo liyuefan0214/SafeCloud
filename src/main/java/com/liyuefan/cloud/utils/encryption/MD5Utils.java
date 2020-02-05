@@ -1,4 +1,4 @@
-package com.liyuefan.cloud.utils;
+package com.liyuefan.cloud.utils.encryption;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;

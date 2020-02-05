@@ -12,6 +12,8 @@ public class Folder {
 
     private BigDecimal folderSize;
 
+    private Integer folderFatherId;
+
     private Integer uid;
 
     private Date createTime;
@@ -48,6 +50,14 @@ public class Folder {
 
     public void setFolderSize(BigDecimal folderSize) {
         this.folderSize = folderSize;
+    }
+
+    public Integer getFolderFatherId() {
+        return folderFatherId;
+    }
+
+    public void setFolderFatherId(Integer folderFatherId) {
+        this.folderFatherId = folderFatherId;
     }
 
     public Integer getUid() {

@@ -6,6 +6,7 @@
     <result column="folder_name" jdbcType="VARCHAR" property="folderName" />
     <result column="folder_path" jdbcType="VARCHAR" property="folderPath" />
     <result column="folder_size" jdbcType="DECIMAL" property="folderSize" />
+    <result column="folder_father_id" jdbcType="INTEGER" property="folderFatherId" />
     <result column="uid" jdbcType="INTEGER" property="uid" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
@@ -69,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, folder_name, folder_path, folder_size, uid, create_time, update_time
+    id, folder_name, folder_path, folder_size, folder_father_id, uid, create_time, update_time
   </sql>
   <select id="selectByExample" parameterType="com.liyuefan.cloud.pojo.FolderExample" resultMap="BaseResultMap">
     select
@@ -103,11 +104,11 @@
   </delete>
   <insert id="insert" parameterType="com.liyuefan.cloud.pojo.Folder">
     insert into folder (id, folder_name, folder_path, 
-      folder_size, uid, create_time, 
-      update_time)
+      folder_size, folder_father_id, uid, 
+      create_time, update_time)
     values (#{id,jdbcType=INTEGER}, #{folderName,jdbcType=VARCHAR}, #{folderPath,jdbcType=VARCHAR}, 
-      #{folderSize,jdbcType=DECIMAL}, #{uid,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{folderSize,jdbcType=DECIMAL}, #{folderFatherId,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.liyuefan.cloud.pojo.Folder">
     insert into folder
@@ -123,6 +124,9 @@
       </if>
       <if test="folderSize != null">
         folder_size,
+      </if>
+      <if test="folderFatherId != null">
+        folder_father_id,
       </if>
       <if test="uid != null">
         uid,
@@ -146,6 +150,9 @@
       </if>
       <if test="folderSize != null">
         #{folderSize,jdbcType=DECIMAL},
+      </if>
+      <if test="folderFatherId != null">
+        #{folderFatherId,jdbcType=INTEGER},
       </if>
       <if test="uid != null">
         #{uid,jdbcType=INTEGER},
@@ -179,6 +186,9 @@
       <if test="record.folderSize != null">
         folder_size = #{record.folderSize,jdbcType=DECIMAL},
       </if>
+      <if test="record.folderFatherId != null">
+        folder_father_id = #{record.folderFatherId,jdbcType=INTEGER},
+      </if>
       <if test="record.uid != null">
         uid = #{record.uid,jdbcType=INTEGER},
       </if>
@@ -199,6 +209,7 @@
       folder_name = #{record.folderName,jdbcType=VARCHAR},
       folder_path = #{record.folderPath,jdbcType=VARCHAR},
       folder_size = #{record.folderSize,jdbcType=DECIMAL},
+      folder_father_id = #{record.folderFatherId,jdbcType=INTEGER},
       uid = #{record.uid,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP}
@@ -218,6 +229,9 @@
       <if test="folderSize != null">
         folder_size = #{folderSize,jdbcType=DECIMAL},
       </if>
+      <if test="folderFatherId != null">
+        folder_father_id = #{folderFatherId,jdbcType=INTEGER},
+      </if>
       <if test="uid != null">
         uid = #{uid,jdbcType=INTEGER},
       </if>
@@ -235,6 +249,7 @@
     set folder_name = #{folderName,jdbcType=VARCHAR},
       folder_path = #{folderPath,jdbcType=VARCHAR},
       folder_size = #{folderSize,jdbcType=DECIMAL},
+      folder_father_id = #{folderFatherId,jdbcType=INTEGER},
       uid = #{uid,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}

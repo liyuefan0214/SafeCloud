@@ -4,12 +4,14 @@ import com.liyuefan.cloud.pojo.Message;
 import com.liyuefan.cloud.pojo.Users;
 import com.liyuefan.cloud.service.UsersService;
 import com.liyuefan.cloud.utils.email.SendMail;
+import com.liyuefan.cloud.utils.file.FileUtils;
 import com.liyuefan.cloud.utils.redis.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,9 +34,10 @@ public class UsersController {
     //登陆
     @RequestMapping(value = "/login")
     @ResponseBody
-    public Message login(Users users, String checkcode) {
+    public Message login(Users users) {
         List<Users> list = usersService.UserLogin(users);
-
+        System.out.println(users.getUsername());
+        System.out.println(users.getPassword());
         if (list.isEmpty()) {
             return Message.fail().add("ErrorInfo", "用户名或密码错误");
         } else {
@@ -62,6 +65,8 @@ public class UsersController {
                     return Message.fail().add("Error", "用户名已存在");
                 }
                 usersService.UserRegist(users);
+                //在项目文件夹下创建一个属于用户的文件夹
+                FileUtils.makeDir(FileController.storePath + java.io.File.separator + users.getUsername());
                 return Message.success().add("registInfo", "注册成功");
             }
         } else {
@@ -90,7 +95,7 @@ public class UsersController {
             operation.sendMail(user, password, host, from, to,
                     subject, sb.toString());
             redisUtil.set(email, code);//添加redis缓存
-            redisUtil.expire(email, 90);//设置验证码失效时间为90秒
+            redisUtil.expire(email, 120);//设置验证码失效时间为90秒
         } catch (Exception e) {
             e.printStackTrace();
             return Message.fail().add("EmailInfo", "发送失败");
